@@ -1,0 +1,87 @@
+# 硬件控制系统配置文件
+# Hardware Control System Configuration
+
+# GPIO 引脚配置
+gpio:
+  mode: BCM  # BCM 或 BOARD
+  warnings: false
+
+# 设备配置
+devices:
+  LED:
+    pin: 17
+    type: digital_output
+    name: "指示灯LED"
+  
+  Button:
+    pin: 27
+    type: digital_input
+    name: "按钮"
+  
+  Motor:
+    forward_pin: 23
+    backward_pin: 24
+    enable_pin: 25
+    type: pwm_motor
+    name: "直流电机"
+    max_speed: 100
+    min_speed: 0
+  
+  Temperature:
+    pin: 4
+    type: dht11
+    name: "温度湿度传感器"
+    sensor_type: DHT11
+  
+  Ultrasonic:
+    trig_pin: 5
+    echo_pin: 6
+    type: ultrasonic
+    name: "超声波距离传感器"
+  
+  Light:
+    pin: 12
+    type: digital_input
+    name: "光传感器"
+
+# 监控参数
+monitoring:
+  enabled: true
+  interval: 1  # 秒
+  log_to_file: true
+  log_file: "hardware_log.csv"
+
+# 告警阈值
+alarms:
+  temperature:
+    warning: 80  # °C
+    critical: 90  # °C
+  
+  power:
+    warning: 500  # W
+    critical: 800  # W
+  
+  motor:
+    max_speed: 100  # %
+    min_speed: 0  # %
+
+# 数据采集
+data_collection:
+  enabled: true
+  export_format: csv  # csv 或 json
+  export_interval: 3600  # 秒（1小时）
+  export_path: "./data/"
+
+# 日志设置
+logging:
+  level: INFO  # DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "system.log"
+  max_size: 10485760  # 10MB
+  backup_count: 5
+
+# 性能参数
+performance:
+  pwm_frequency: 1000  # Hz
+  i2c_bus: 1
+  i2c_speed: 100000  # Hz
